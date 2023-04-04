@@ -14,7 +14,7 @@ const getAll = async (req, reply) => {
         const hotelsList = await Hotel.findAll({ raw: true })
         console.log('hotelsController: getAll::result', hotelsList)
         if(!hotelsList.length){
-            return reply.code(404).send({ data: "There are no hotels" })
+            return reply.code(404).send({ message: "There are no hotels" })
         }
         reply.code(200).send({ data: hotelsList })
     } catch (error) {
@@ -29,7 +29,7 @@ const getOne = async (req, reply) => {
         const hotel = await Hotel.findOne({ where: { id }, raw: true })
         console.log('hotel ::', hotel)
         if(!hotel) {
-            return reply.code(200).send({ data: "Resource doesnt exist" })
+            return reply.code(404).send({ message: "Resource doesnt exist" })
         }
         reply.code(200).send({ data: hotel })
     } catch (error) {
@@ -78,10 +78,9 @@ const deleteOne = async (req, reply) => {
 
         const result = await Hotel.destroy({ where: { id } })
 
-        if (result[0] === 0) {
+        if (result === 0) {
             throw Error("The resource doesnt exist!");
         }
-        console.log('HERe', result)
         reply.send({ data: "Record deleted Successfully!" })
     } catch (error) {
         console.log(error.message)

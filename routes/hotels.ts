@@ -142,6 +142,12 @@ const Hotel = {
                 data:{type: 'string'}
             }
         },
+        500 : {
+          type: 'object',
+          properties: {
+              message:{type: 'string'}
+          }
+      }
       },
     },
     handler: patch,
