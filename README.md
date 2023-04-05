@@ -11,4 +11,6 @@ npm i -D typescript @types/node
 
 3. Run `npm run build` - this will compile index.ts into index.js which can be executed using Node.js.
 4. Run `npm run start` to run the Fastify server
-You should see Server listening at http://127.0.0.1:8080 in your console
+You should see Server listening at http://127.0.0.1:3000 in your console
+
+The swagger-ui is available on http://127.0.0.1:3000/docs
