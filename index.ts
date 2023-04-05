@@ -1,26 +1,21 @@
-const fastify = require('fastify')();
+const fastify = require('fastify')
+import swagger from '@fastify/swagger'
+import swagger_ui from '@fastify/swagger-ui'
+
+const app = fastify();
+
 
 (async () => {
   // set up swagger
-  await fastify.register(require('@fastify/swagger'), {});
+  await app.register(swagger, {});
 
-  await fastify.register(require('@fastify/swagger-ui'), {
+  await app.register(swagger_ui, {
         routePrefix: '/docs',
         swagger: {
             info: {
-                title: 'My FirstAPP Documentation',
-                description: 'My FirstApp Backend Documentation description',
+                title: 'Fastify App Documentation',
+                description: 'Fastify Hotels App Documentation description',
                 version: '0.1.0',
-                termsOfService: 'https://mywebsite.io/tos',
-                contact: {
-                    name: 'John Doe',
-                    url: 'https://www.johndoe.com',
-                    email: 'john.doe@email.com'
-                }
-            },
-            externalDocs: {
-                url: 'https://www.johndoe.com/api/',
-                description: 'Find more info here'
             },
             host: '127.0.0.1:3000',
             basePath: '',
@@ -31,24 +26,6 @@ const fastify = require('fastify')();
                 name: 'Hotel',
                 description: 'Hotel\'s API'
             }, ],
-            definitions: {
-                Hotel: {
-                    type: 'object',
-                    required: ['id', 'name', 'location'],
-                    properties: {
-                        id: {
-                            type: 'number',
-                            format: 'uuid'
-                        },
-                        name: {
-                            type: 'string'
-                        },
-                        location: {
-                            type: 'string'
-                        }
-                    }
-                },
-            }
         },
         uiConfig: {
             docExpansion: 'none', // expand/not all the documentations none|list|full
@@ -70,57 +47,59 @@ const fastify = require('fastify')();
 
   // define all your routes
 
-  fastify.route({
-    url: '/',
-    method: ['GET'],
-    // request and response schema
-    schema: {
-      summary: 'Returns all Hotels',
-      description: 'Returns all the hotels\'s data',
-      tags: ['hotels'],
-      response: {
-        200: {
-          description: 'Returns all the hotels',
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              id: {
-                type: 'number',
-                format: 'uuid'
-              },
-              name: {
-                type: 'string'
-              },
-              location: {
-                type: 'string'
-              }
-            }
-          }
-        },
-        404: {
-          description: 'Hotel not found',
-          type: 'object',
-          properties: {
-            code: {
-              type: 'string'
-            },
-            message: {
-              type: 'string'
-            }
-          }
-        }
-      }
-    },
+  // fastify.get('/',{
+  //   // url: '/',
+  //   // method: ['GET'],
+  //   // request and response schema
+  //   schema: {
+  //     summary: 'Returns all Hotels',
+  //     description: 'Returns all the hotels\'s data',
+  //     tags: ['hotels'],
+  //     response: {
+  //       200: {
+  //         description: 'Returns all the hotels',
+  //         type: 'array',
+  //         items: {
+  //           type: 'object',
+  //           properties: {
+  //             id: {
+  //               type: 'number',
+  //               format: 'uuid'
+  //             },
+  //             name: {
+  //               type: 'string'
+  //             },
+  //             location: {
+  //               type: 'string'
+  //             }
+  //           }
+  //         }
+  //       },
+  //       404: {
+  //         description: 'Hotel not found',
+  //         type: 'object',
+  //         properties: {
+  //           code: {
+  //             type: 'string'
+  //           },
+  //           message: {
+  //             type: 'string'
+  //           }
+  //         }
+  //       }
+  //     }
+  //   },
    
-    // the function that will handle this request
-    handler: async (request, reply) => {
-      return 'json_hotels'
-    }
-  })
+  //   // the function that will handle this request
+  //   handler: async (request, reply) => {
+  //     return 'json_hotels'
+  //   }
+  // })
 
-  await fastify.ready()
-  fastify.swagger()
+  app.register(require('./routes/hotels'))
 
-  fastify.listen(3000, ()=> console.log('Here , listinng'))
+  await app.ready()
+  app.swagger()
+
+  app.listen(3000, ()=> console.log('Here , listinng'))
 })();
