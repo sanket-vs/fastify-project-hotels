@@ -13,4 +13,4 @@ npm i -D typescript @types/node
 4. Run `npm run start` to run the Fastify server
 You should see Server listening at http://127.0.0.1:3000 in your console
 
-The swagger-ui is available on http://127.0.0.1:3000/docs
+The swagger-ui will be available on http://127.0.0.1:3000/docs
