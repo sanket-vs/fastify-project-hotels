@@ -3,7 +3,8 @@
 Create a new npm project, install Fastify, and install typescript & node.js types as peer dependencies:
 ```npm init -y
 npm i fastify
-npm i -D typescript @types/node```
+npm i -D typescript @types/node
+```
 
 2. Initialize a TypeScript configuration file:
 npx typescript --init
