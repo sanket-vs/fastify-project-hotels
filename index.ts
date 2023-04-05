@@ -1,6 +1,6 @@
 const fastify = require('fastify')
-import swagger from '@fastify/swagger'
-import swagger_ui from '@fastify/swagger-ui'
+const swagger = require('@fastify/swagger')
+const swagger_ui = require('@fastify/swagger-ui')
 
 const app = fastify();
 
@@ -44,58 +44,6 @@ const app = fastify();
         exposeRoute: true
     })
     
-
-  // define all your routes
-
-  // fastify.get('/',{
-  //   // url: '/',
-  //   // method: ['GET'],
-  //   // request and response schema
-  //   schema: {
-  //     summary: 'Returns all Hotels',
-  //     description: 'Returns all the hotels\'s data',
-  //     tags: ['hotels'],
-  //     response: {
-  //       200: {
-  //         description: 'Returns all the hotels',
-  //         type: 'array',
-  //         items: {
-  //           type: 'object',
-  //           properties: {
-  //             id: {
-  //               type: 'number',
-  //               format: 'uuid'
-  //             },
-  //             name: {
-  //               type: 'string'
-  //             },
-  //             location: {
-  //               type: 'string'
-  //             }
-  //           }
-  //         }
-  //       },
-  //       404: {
-  //         description: 'Hotel not found',
-  //         type: 'object',
-  //         properties: {
-  //           code: {
-  //             type: 'string'
-  //           },
-  //           message: {
-  //             type: 'string'
-  //           }
-  //         }
-  //       }
-  //     }
-  //   },
-   
-  //   // the function that will handle this request
-  //   handler: async (request, reply) => {
-  //     return 'json_hotels'
-  //   }
-  // })
-
   app.register(require('./routes/hotels'))
 
   await app.ready()

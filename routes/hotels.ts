@@ -126,6 +126,13 @@ const Hotel = {
     schema: {
       descripttion: 'Update hotel details by id',
       tags: ['hotel'],
+      body: {
+        type: 'object',
+        properties: {
+          name: {type: 'string'},
+          location: {type: 'string'}
+        }
+      },
       params: {
         type: 'object',
         properties: {
