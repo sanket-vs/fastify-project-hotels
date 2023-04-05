@@ -43,7 +43,8 @@ const app = fastify();
         transformStaticCSP: (header) => header,
         exposeRoute: true
     })
-    
+  
+  //Register your routes
   app.register(require('./routes/hotels'))
 
   await app.ready()

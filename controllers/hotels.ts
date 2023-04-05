@@ -8,7 +8,13 @@ const setHotelBody = (body) => {
     return model
 }
 
-
+/**
+ * Api to return list of hotels
+ * 
+ * @param req 
+ * @param reply 
+ * @returns the list of hotels
+ */
 const getAll = async (req, reply) => {
     try {
         const hotelsList = await Hotel.findAll({ raw: true })
@@ -23,6 +29,13 @@ const getAll = async (req, reply) => {
     }
 }
 
+/**
+ * Api to get hotel by id
+ * 
+ * @param req 
+ * @param reply 
+ * @returns A single hotel
+ */
 const getOne = async (req, reply) => {
     try {
         const { params: { id } } = req
@@ -39,6 +52,12 @@ const getOne = async (req, reply) => {
 
 }
 
+/**
+ * Api to create a new hotel
+ * 
+ * @param req 
+ * @param reply 
+ */
 const post = async (req, reply) => {
     try {
         const { body } = req
@@ -54,6 +73,12 @@ const post = async (req, reply) => {
 
 }
 
+/**
+ * Api to update an existing hotel
+ * 
+ * @param req 
+ * @param reply 
+ */
 const patch = async (req, reply) => {
     try {
         const { params: { id }, body } = req
@@ -72,6 +97,11 @@ const patch = async (req, reply) => {
     }
 }
 
+/**
+ * Api to delete a hotel by id
+ * @param req 
+ * @param reply 
+ */
 const deleteOne = async (req, reply) => {
     try {
         const { params: { id } } = req
