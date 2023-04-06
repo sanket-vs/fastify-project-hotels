@@ -1,10 +1,10 @@
-const { getSequelize, DataTypes} = require("./dbClient");
+const { getSequelize, DataTypes} = require("./dbClient.ts")
 
 const { BIGINT, STRING } = DataTypes;
 
 const sequelize = getSequelize();
 
-module.exports.Hotel = sequelize.define("Hotel", {
+export const Hotel = sequelize.define("Hotel", {
   id: {
     type: BIGINT,
     allowNull: false,
@@ -25,3 +25,11 @@ module.exports.Hotel = sequelize.define("Hotel", {
     timestamps: false
   }
 );
+
+// export {
+//   Hotel
+// }
+
+module.exports = {
+  Hotel
+}

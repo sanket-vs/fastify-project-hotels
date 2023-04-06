@@ -10,6 +10,10 @@ const ENV_VARS = {
   TIMEZONE: process.env.TIMEZONE,
 }
 
+// export {
+//     ENV_VARS
+// }
+
 module.exports = {
-    ENV_VARS
+  ENV_VARS
 }
