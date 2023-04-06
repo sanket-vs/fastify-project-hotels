@@ -1,6 +1,7 @@
-const fastify = require('fastify')
-const swagger = require('@fastify/swagger')
-const swagger_ui = require('@fastify/swagger-ui')
+import fastify from 'fastify'
+import swagger from '@fastify/swagger'
+// import swagger_ui from '@fastify/swagger-ui'
+const swagger_ui = require('@fastify/swagger-ui')    //Changing this into import, app.register whole code gets red underlined ..   error says: app.registor doesnt contain 'swagger' 
 
 const app = fastify();
 
@@ -32,15 +33,15 @@ const app = fastify();
             deepLinking: true
         },
         uiHooks: {
-            onRequest: function(request, reply, next) {
+            onRequest: function(request: {}, reply: {}, next: ()=>void) {
                 next()
             },
-            preHandler: function(request, reply, next) {
+            preHandler: function(request: {}, reply: {}, next: ()=>void) {
                 next()
             }
         },
         staticCSP: false,
-        transformStaticCSP: (header) => header,
+        transformStaticCSP: (header: {}) => header,
         exposeRoute: true
     })
   
@@ -50,5 +51,12 @@ const app = fastify();
   await app.ready()
   app.swagger()
 
-  app.listen(3000, ()=> console.log('Here , listinng'))
+  app.listen({ port: 3000, host: 'localhost' }, (err, address) => {
+    if (err) {
+      console.error(err)
+      process.exit(1)
+    }
+
+    console.log('Listening on port 3000')
+  })
 })();

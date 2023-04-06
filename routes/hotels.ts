@@ -1,4 +1,4 @@
-const { getAll, getOne, patch, post, deleteOne } = require("../controllers/hotels");
+const { getAll, getOne, patch, post, deleteOne } = require("../controllers/hotels.ts")
 
 // Hotel schema
 const Hotel = {
@@ -169,7 +169,7 @@ const Hotel = {
     handler: patch,
   }
 
-function hotelRoutes(fastify, options, done) {
+function hotelRoutes(fastify: {get: any, post: any, delete: any, patch: any}, options: any, done: any) {
     // Get all hotels
     fastify.get('/hotels', getHotelsOpts)
   

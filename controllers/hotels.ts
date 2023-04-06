@@ -1,9 +1,13 @@
-const { sequelizeOp } = require("../clients/sequelizeClient")
+const { sequelizeOp } = require("../clients/sequelizeClient.ts")
 
 const { Hotel } = require('../models/hotel')
 
-const setHotelBody = (body) => {
-    const model = {}
+interface iBody {
+    name ?: string,
+    location ?: string,
+}
+const setHotelBody = (body: iBody) => {
+    const model: iBody = {}
     body.name && (model.name = body.name)
     body.location && (model.location = body.location)
 
@@ -17,11 +21,12 @@ const setHotelBody = (body) => {
  * @param reply 
  * @returns the list of hotels
  */
-const getAll = async (req, reply) => {
+// reply: {code: () => {send: ()=>{}}}   Give interface to type
+const getAll = async (req: {query: { search_term: string}}, reply: {code: (arg: number)=>{send: (arg: {})=>{}}}) => {
     try {
         const { query: { search_term: searchTerm } } = req
 
-        const whereCond = {} 
+        const whereCond : {name?: {}}= {} 
         searchTerm && (whereCond.name = {[sequelizeOp.like]: `%${searchTerm}%`})
 
         const hotelsList = await Hotel.findAll({ where: whereCond, raw: true })
@@ -30,7 +35,7 @@ const getAll = async (req, reply) => {
             return reply.code(404).send({ message: "There are no hotels" })
         }
         reply.code(200).send({ data: hotelsList })
-    } catch (error) {
+    } catch (error: any) {         // -------------------->>>>>>>>>>>>>>>>>
         console.log('hotelsController: getAll::', error.message)
         reply.code(500).send({ message: error.message })
     }
@@ -43,7 +48,7 @@ const getAll = async (req, reply) => {
  * @param reply 
  * @returns A single hotel
  */
-const getOne = async (req, reply) => {
+const getOne = async (req : {params: { id: string}}, reply: {code: (arg: number)=>{send: (arg: {})=>{}}}) => {
     try {
         const { params: { id } } = req
         const hotel = await Hotel.findOne({ where: { id }, raw: true })
@@ -52,7 +57,7 @@ const getOne = async (req, reply) => {
             return reply.code(404).send({ message: "Resource doesnt exist" })
         }
         reply.code(200).send({ data: hotel })
-    } catch (error) {
+    } catch (error: any) {
         console.log('hotelsController: getOne::', error.message)
         reply.code(500).send({ message: error.message })
     }
@@ -65,7 +70,7 @@ const getOne = async (req, reply) => {
  * @param req 
  * @param reply 
  */
-const post = async (req, reply) => {
+const post = async (req : {body: {}}, reply: {code: (arg: number)=>{send: (arg: {})=>{}}}) => {
     try {
         const { body } = req
 
@@ -73,7 +78,7 @@ const post = async (req, reply) => {
 
         await Hotel.create(postBody)
         reply.code(201).send({ data: "Resource created!" })
-    } catch (error) {
+    } catch (error: any) {
         console.log('hotelsController: post::', error.message)
         reply.code(500).send({ message: error.message })
     }
@@ -86,7 +91,7 @@ const post = async (req, reply) => {
  * @param req 
  * @param reply 
  */
-const patch = async (req, reply) => {
+const patch = async (req : {params: { id: string}, body:{}}, reply: any) => {
     try {
         const { params: { id }, body } = req
 
@@ -98,7 +103,7 @@ const patch = async (req, reply) => {
         }
 
         reply.send({ data: "Record updated Successfully!" })      //Not able to use .code() here, fastify issue
-    } catch (error) {
+    } catch (error: any) {
         console.log('hotelsController: patch::', error.message)
         reply.code(500).send({ message: error.message })
     }
@@ -109,7 +114,7 @@ const patch = async (req, reply) => {
  * @param req 
  * @param reply 
  */
-const deleteOne = async (req, reply) => {
+const deleteOne = async (req : {params: { id: string}}, reply: any) => {
     try {
         const { params: { id } } = req
 
@@ -119,11 +124,19 @@ const deleteOne = async (req, reply) => {
             throw Error("The resource doesnt exist!");
         }
         reply.send({ data: "Record deleted Successfully!" })
-    } catch (error) {
+    } catch (error: any) {
         console.log(error.message)
         reply.code(500).send({ message: error.message })
     }
 }
+
+// export {
+//     getAll,
+//     getOne,
+//     post,
+//     patch,
+//     deleteOne,
+// }
 
 module.exports = {
     getAll,
