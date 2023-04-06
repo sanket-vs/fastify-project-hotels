@@ -15,6 +15,15 @@ const Hotel = {
     schema: {
       descripttion: 'Get all hotels',
       tags: ['hotel'],
+      query: {
+        type: 'object',
+        properties: {
+          search_term: {
+            type: 'string',
+            description: 'Search for hotels by a search-term'
+          }
+        }
+      },
       response: {
         200: {
           type: 'object',

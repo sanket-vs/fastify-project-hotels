@@ -1,3 +1,5 @@
+const { sequelizeOp } = require("../clients/sequelizeClient")
+
 const { Hotel } = require('../models/hotel')
 
 const setHotelBody = (body) => {
@@ -17,7 +19,12 @@ const setHotelBody = (body) => {
  */
 const getAll = async (req, reply) => {
     try {
-        const hotelsList = await Hotel.findAll({ raw: true })
+        const { query: { search_term: searchTerm } } = req
+
+        const whereCond = {} 
+        searchTerm && (whereCond.name = {[sequelizeOp.like]: `%${searchTerm}%`})
+
+        const hotelsList = await Hotel.findAll({ where: whereCond, raw: true })
         console.log('hotelsController: getAll::result', hotelsList)
         if(!hotelsList.length){
             return reply.code(404).send({ message: "There are no hotels" })
