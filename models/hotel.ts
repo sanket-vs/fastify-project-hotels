@@ -1,10 +1,10 @@
-const { getSequelize, DataTypes} = require("./dbClient.ts")
+import { getSequelize, DataTypes} from "./dbClient"
 
 const { BIGINT, STRING } = DataTypes;
 
 const sequelize = getSequelize();
 
-export const Hotel = sequelize.define("Hotel", {
+const Hotel = sequelize.define("Hotel", {
   id: {
     type: BIGINT,
     allowNull: false,
@@ -26,10 +26,6 @@ export const Hotel = sequelize.define("Hotel", {
   }
 );
 
-// export {
-//   Hotel
-// }
-
-module.exports = {
+export {
   Hotel
 }

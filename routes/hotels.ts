@@ -1,4 +1,4 @@
-const { getAll, getOne, patch, post, deleteOne } = require("../controllers/hotels.ts")
+import { getAll, getOne, patch, post, deleteOne } from "../controllers/hotels"
 
 // Hotel schema
 const Hotel = {

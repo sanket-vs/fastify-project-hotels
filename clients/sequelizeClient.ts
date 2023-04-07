@@ -1,19 +1,16 @@
-const  { Sequelize, DataTypes, fn, col, Op } = require('sequelize')   //Cannot use import outside a module
 /**
  * This is the Sequelize ORM client that we are using the handle the MySQL database operations.
- */
+*/
 
-// import {Sequelize, DataTypes, fn, col, Op} from 'sequelize'
-const mysql2 = require('mysql2')
+const  { Sequelize, DataTypes, fn, col, Op } = require('sequelize')   //"Importing" these from 'sequelize' generates a lot of red lines below, the whole 'new Sequelize()' part
 
-const { RDS_DATABASE, RDS_PASSWORD, RDS_HOSTNAME, RDS_USERNAME, RDS_PORT, TIMEZONE } = require("../common/constants").ENV_VARS;
+import mysql2 from 'mysql2'
 
-// import {ENV_VARS} from "../common/constants"                    //Giving a lot of red lines in below code
-// const { RDS_DATABASE, RDS_PASSWORD, RDS_HOSTNAME, RDS_USERNAME, RDS_PORT, TIMEZONE } = ENV_VARS
+import {ENV_VARS} from "../common/constants"                    
+const { RDS_DATABASE, RDS_PASSWORD, RDS_HOSTNAME, RDS_USERNAME, RDS_PORT, TIMEZONE } = ENV_VARS
 
 
-// let gSequelize: any = null;
-let gSequelize  = null;
+let gSequelize: any = null;
 
 const initializePool = () => {
     console.log(`initializePool: Connecting with "${RDS_DATABASE}" on "${RDS_HOSTNAME}"`)
@@ -108,22 +105,12 @@ const getSequelize = () => {
     return initializeSequelizeClient();
 }
 
-// export {
-//     initializeSequelizeClient,
-//     closeSequelizeConnectionManager,
-//     getSequelize,
-//     DataTypes,
-//     fn as sequelizeFunction,
-//     col as sequelizeColumns,
-//     Op as sequelizeOp
-// }
-
-module.exports = {
+export {
     initializeSequelizeClient,
     closeSequelizeConnectionManager,
     getSequelize,
     DataTypes,
-    sequelizeFunction: fn,
-    sequelizeColumns: col,
-    sequelizeOp: Op
+    fn as sequelizeFunction,
+    col as sequelizeColumns,
+    Op as sequelizeOp
 }

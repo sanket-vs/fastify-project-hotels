@@ -1,12 +1,6 @@
-const { getSequelize, DataTypes, sequelizeOp } = require("../clients/sequelizeClient.ts")
+import { getSequelize, DataTypes, sequelizeOp } from "../clients/sequelizeClient"
 
-// export {
-//     getSequelize,
-//     DataTypes,
-//     sequelizeOp
-// }
-
-module.exports = {
+export {
     getSequelize,
     DataTypes,
     sequelizeOp

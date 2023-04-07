@@ -1,7 +1,7 @@
 import fastify from 'fastify'
 import swagger from '@fastify/swagger'
-// import swagger_ui from '@fastify/swagger-ui'
 const swagger_ui = require('@fastify/swagger-ui')    //Changing this into import, app.register whole code gets red underlined ..   error says: app.registor doesnt contain 'swagger' 
+// import swagger_ui from '@fastify/swagger-ui';
 
 const app = fastify();
 

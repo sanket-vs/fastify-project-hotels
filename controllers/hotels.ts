@@ -1,6 +1,6 @@
-const { sequelizeOp } = require("../clients/sequelizeClient.ts")
+import { sequelizeOp } from "../clients/sequelizeClient"
 
-const { Hotel } = require('../models/hotel')
+import { Hotel } from '../models/hotel'
 
 interface iBody {
     name ?: string,
@@ -130,20 +130,13 @@ const deleteOne = async (req : {params: { id: string}}, reply: any) => {
     }
 }
 
-// export {
-//     getAll,
-//     getOne,
-//     post,
-//     patch,
-//     deleteOne,
-// }
-
-module.exports = {
+export {
     getAll,
     getOne,
     post,
     patch,
     deleteOne,
 }
+
 
 
